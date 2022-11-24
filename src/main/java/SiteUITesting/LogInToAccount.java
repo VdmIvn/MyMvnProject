@@ -1,3 +1,5 @@
+package SiteUITesting;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class LogOut {
+public class LogInToAccount {
     public static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
@@ -23,9 +25,7 @@ public class LogOut {
         String email = "gb-test-vi@mail.ru";
         String password = "qwerty123456";
 
-        // --------------------------------------------------------PRECONDITION------------------------------------------------------------------
-
-        WebElement accountButton = driver.findElement(By.xpath("//*[@id=\"header\"]//button[@class='styles_userToolsToggler__imcSl']"));
+        WebElement accountButton = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button"));
         accountButton.click();
 
         WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]/div/div[1]/button"));
@@ -42,32 +42,19 @@ public class LogOut {
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"modal\"]/div/div")));
 
-        // ------------------------------------------------------TC PROCEDURE---------------------------------------------------------------
-
-        WebElement secondAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]//button[@class='styles_userToolsToggler__imcSl']"));
-        secondAccountButton.click();
+        WebElement newAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button"));
+        newAccountButton.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"userToolsDropDown\"]//a[@href='/logout/']")));
-        WebElement logOutButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//a[@href='/logout/']"));
-        logOutButton.click();
+        WebElement userSubtitle = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//span[@class='userToolsSubtitle']"));
 
-        driver.navigate().refresh();
-
-        WebElement thirdAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]//button[@class='styles_userToolsToggler__imcSl']"));
-        thirdAccountButton.click();
-
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"userToolsDropDown\"]/div/div[1]/div")));
-        WebElement newLoginButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]/div/div[1]/button"));
-
-        if (newLoginButton.isDisplayed()) {
-            System.out.println("You're logged out successfully");
+        if (userSubtitle.isDisplayed()) {
+            System.out.println("You're logged in successfully as " + userSubtitle.getText());
         } else {
-            System.out.println("Something went wrong! Make sure that logging out is performed");
+            System.out.println("Something went wrong! Make sure that logging in is performed");
         }
 
-       //driver.quit();
-
+        //driver.quit();
     }
 }
-
 

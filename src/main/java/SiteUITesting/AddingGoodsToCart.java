@@ -1,3 +1,5 @@
+package SiteUITesting;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,8 +13,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class RemovingFromTheCart {
-    public static void main(String[] args) {
+
+public class AddingGoodsToCart {
+    public static void main(String[] args)  {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -24,9 +27,6 @@ public class RemovingFromTheCart {
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.get("https://www.21vek.by");
 
-
-        // --------------------------------------------------------PRECONDITION------------------------------------------------------------------
-
         String searchParam = "Холодильники";
 
         WebElement searchField = driver.findElement(By.id("catalogSearch"));
@@ -37,18 +37,22 @@ public class RemovingFromTheCart {
         WebElement addToCartButton1 = driver.findElement(By.xpath("//*[@id=\"j-result-page-1\"]/div[1]//li[1]//button"));
         addToCartButton1.click();
 
-        try{
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        WebElement cartCounter = driver.findElement(By.xpath("//*[@id=\"header\"]//span[@class='headerCartCount']"));
+        if(cartCounter.isDisplayed()) {
+            System.out.println(firstProduct + " is added to the shopping cart. Your cart contains " + cartCounter.getText() + " product.");
         }
 
         String secondProduct = driver.findElement(By.xpath("//*[@id=\"j-result-page-1\"]/div[1]/div/ul/li[2]/dl/dt/a/span[2]")).getText();
         WebElement addToCartButton2 = driver.findElement(By.xpath("//*[@id=\"j-result-page-1\"]/div[1]//ul/li[2]//button"));
         addToCartButton2.click();
 
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//*[@id=\"header\"]//span[@class='headerCartCount']"), "2"));
+
+        WebElement cartCounterUPD = driver.findElement(By.xpath("//*[@id=\"header\"]//span[@class='headerCartCount']"));
+        System.out.println("\n" + secondProduct + " is added to the shopping cart. There are " + cartCounterUPD.getText() + " products in your cart." + "\n");
+
         try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -61,32 +65,12 @@ public class RemovingFromTheCart {
 
 
         if(firstProduct.equals(firstProductInTheCart) && secondProduct.equals(secondProductInTheCart)) {
-            System.out.println("Your shopping cart contains the following products:");
-            System.out.println("1: " + firstProductInTheCart);
-            System.out.println("2: " + secondProductInTheCart);
+            System.err.println("Your shopping cart contains the following products:");
+            System.out.println("1: " + firstProduct);
+            System.out.println("2: " + secondProduct);
         } else {
             System.out.println("Something went wrong. Check your cart.");
         }
-
-        // ------------------------------------------------------TC PROCEDURE---------------------------------------------------------------
-
-        WebElement deleteLink1 = driver.findElement(By.xpath("//*[@id=\"j-delete-7061369\"]"));
-        deleteLink1.click();
-
-        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"j-delete-7061369\"]")));
-
-        System.err.println("\n" + firstProductInTheCart + " is deleted from your cart.");
-
-        WebElement deleteLink2 = driver.findElement(By.xpath("//*[@id=\"j-delete-46280\"]"));
-        deleteLink2.click();
-
-        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"j-delete-46280\"]")));
-
-        System.err.println("\n" + secondProductInTheCart+ " is deleted from your cart.");
-
-        new WebDriverWait(driver, Duration.ofSeconds(2)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"b-empty-basket-container\"]")));
-
-        System.out.println("\n" + "Your cart is empty!");
 
         //driver.quit();
     }
