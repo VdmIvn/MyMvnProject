@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogInToAccount {
-    public static void main(String[] args) {
+    public boolean logInToAccount () { //static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -50,8 +50,10 @@ public class LogInToAccount {
 
         if (userSubtitle.isDisplayed()) {
             System.out.println("You're logged in successfully as " + userSubtitle.getText());
+            return true;
         } else {
             System.out.println("Something went wrong! Make sure that logging in is performed");
+            return false;
         }
 
         //driver.quit();
