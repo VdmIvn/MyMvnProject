@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogOut {
-    public static void main(String[] args) {
+    public boolean logOut() {//static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -63,8 +63,10 @@ public class LogOut {
 
         if (newLoginButton.isDisplayed()) {
             System.out.println("You're logged out successfully");
+            return true;
         } else {
             System.out.println("Something went wrong! Make sure that logging out is performed");
+            return false;
         }
 
        //driver.quit();
