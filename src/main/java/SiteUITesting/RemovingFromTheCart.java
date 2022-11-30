@@ -26,7 +26,6 @@ public class RemovingFromTheCart {
         driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.get("https://www.21vek.by");
 
-
         // --------------------------------------------------------PRECONDITION------------------------------------------------------------------
 
         String searchParam = "Холодильники";
@@ -61,15 +60,6 @@ public class RemovingFromTheCart {
         String firstProductInTheCart = driver.findElement(By.xpath("//*[@id=\"j-basket__items\"]/tbody/tr[1]/td[2]/a")).getText();
         String secondProductInTheCart = driver.findElement(By.xpath("//*[@id=\"j-basket__items\"]/tbody/tr[2]/td[2]/a")).getText();
 
-
-        if(firstProduct.equals(firstProductInTheCart) && secondProduct.equals(secondProductInTheCart)) {
-            System.out.println("Your shopping cart contains the following products:");
-            System.out.println("1: " + firstProductInTheCart);
-            System.out.println("2: " + secondProductInTheCart);
-        } else {
-            System.out.println("Something went wrong. Check your cart.");
-        }
-
         // ------------------------------------------------------TC PROCEDURE---------------------------------------------------------------
 
         WebElement deleteLink1 = driver.findElement(By.xpath("//*[@id=\"j-delete-7061369\"]"));
@@ -90,6 +80,6 @@ public class RemovingFromTheCart {
 
         System.out.println("\n" + "Your cart is empty!");
 
-        //driver.quit();
+        driver.quit();
     }
 }

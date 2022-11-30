@@ -6,7 +6,7 @@
                 %msg%n</Pattern>
         </layout>
     </appender>
-    <root level="info">
+    <root level="error">
         <appender-ref ref="CONSOLE" />
     </root>
 </configuration>

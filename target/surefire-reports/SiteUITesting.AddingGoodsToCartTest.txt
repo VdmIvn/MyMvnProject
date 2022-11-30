@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+Test set: SiteUITesting.AddingGoodsToCartTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 17.442 s <<< FAILURE! - in SiteUITesting.AddingGoodsToCartTest
+SiteUITesting.AddingGoodsToCartTest.addToCart  Time elapsed: 15.459 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="j-basket__items"]/tbody/tr[2]/td[2]/a"}
+  (Session info: chrome=107.0.5304.121)
+For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
+Build info: version: '4.5.3', revision: '4b786a1e430'
+System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.1'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [acfb1335b66d2fcd993dbeb844993582, findElement {using=xpath, value=//*[@id="j-basket__items"]/tbody/tr[2]/td[2]/a}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.121, chrome: {chromedriverVersion: 107.0.5304.62 (1eec40d3a576..., userDataDir: C:\Users\VADIMI~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:58953}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:58953/devtoo..., se:cdpVersion: 107.0.5304.121, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: acfb1335b66d2fcd993dbeb844993582
+	at SiteUITesting.AddingGoodsToCartTest.addToCart(AddingGoodsToCartTest.java:40)
+

@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class AddingGoodsToCart {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -63,15 +63,15 @@ public class AddingGoodsToCart {
         String firstProductInTheCart = driver.findElement(By.xpath("//*[@id=\"j-basket__items\"]/tbody/tr[1]/td[2]/a")).getText();
         String secondProductInTheCart = driver.findElement(By.xpath("//*[@id=\"j-basket__items\"]/tbody/tr[2]/td[2]/a")).getText();
 
-
         if(firstProduct.equals(firstProductInTheCart) && secondProduct.equals(secondProductInTheCart)) {
             System.err.println("Your shopping cart contains the following products:");
             System.out.println("1: " + firstProduct);
             System.out.println("2: " + secondProduct);
+
         } else {
             System.out.println("Something went wrong. Check your cart.");
         }
 
-        //driver.quit();
+        driver.quit();
     }
 }

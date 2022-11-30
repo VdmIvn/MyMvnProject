@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogInToAccount {
-    public boolean logInToAccount () { //static void main(String[] args) {
+    public static void main(String[] args) {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -25,10 +25,10 @@ public class LogInToAccount {
         String email = "gb-test-vi@mail.ru";
         String password = "qwerty123456";
 
-        WebElement accountButton = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button"));
+        WebElement accountButton = driver.findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']"));
         accountButton.click();
 
-        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]/div/div[1]/button"));
+        WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//button"));
         loginButton.click();
 
         WebElement emailField = driver.findElement(By.xpath("//*[@id=\"login-email\"]"));
@@ -40,9 +40,9 @@ public class LogInToAccount {
         WebElement submitCredsButton = driver.findElement(By.xpath("//*[@id=\"modal\"]//button[@type='submit']"));
         submitCredsButton.click();
 
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"modal\"]/div/div")));
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id='modal']/div/div")));
 
-        WebElement newAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button"));
+        WebElement newAccountButton = driver.findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']"));
         newAccountButton.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"userToolsDropDown\"]//a[@href='/logout/']")));
@@ -50,13 +50,11 @@ public class LogInToAccount {
 
         if (userSubtitle.isDisplayed()) {
             System.out.println("You're logged in successfully as " + userSubtitle.getText());
-            return true;
+            driver.quit();
         } else {
             System.out.println("Something went wrong! Make sure that logging in is performed");
-            return false;
         }
 
-        //driver.quit();
     }
 }
 

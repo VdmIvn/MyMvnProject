@@ -1,5 +1,4 @@
 package SiteUITesting;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +11,9 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class LogOut {
-    public boolean logOut() {//static void main(String[] args) {
+    public static void main(String[] args) {
+
+        // --------------------------------------------------------PRECONDITION------------------------------------------------------------------
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -25,9 +26,7 @@ public class LogOut {
         String email = "gb-test-vi@mail.ru";
         String password = "qwerty123456";
 
-        // --------------------------------------------------------PRECONDITION------------------------------------------------------------------
-
-        WebElement accountButton = driver.findElement(By.xpath("//*[@id=\"header\"]//button[@class='styles_userToolsToggler__imcSl']"));
+        WebElement accountButton = driver.findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']"));
         accountButton.click();
 
         WebElement loginButton = driver.findElement(By.xpath("//*[@id=\"userToolsDropDown\"]/div/div[1]/button"));
@@ -46,7 +45,7 @@ public class LogOut {
 
         // ------------------------------------------------------TC PROCEDURE---------------------------------------------------------------
 
-        WebElement secondAccountButton = driver.findElement(By.xpath("//*[@id=\"header\"]//button[@class='styles_userToolsToggler__imcSl']"));
+        WebElement secondAccountButton = driver.findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']"));
         secondAccountButton.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"userToolsDropDown\"]//a[@href='/logout/']")));
@@ -63,13 +62,11 @@ public class LogOut {
 
         if (newLoginButton.isDisplayed()) {
             System.out.println("You're logged out successfully");
-            return true;
         } else {
             System.out.println("Something went wrong! Make sure that logging out is performed");
-            return false;
         }
 
-       //driver.quit();
+        driver.quit();
 
     }
 }
