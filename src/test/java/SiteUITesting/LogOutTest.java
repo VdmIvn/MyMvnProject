@@ -1,5 +1,7 @@
 package SiteUITesting;
 
+import SiteUIPageObject.LoginModal;
+import SiteUIPageObject.MainPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,38 +17,27 @@ public class LogOutTest extends AbstractTest {
 
     @Test
     @DisplayName("Log out of the account")
-    public void logOut() {
-        String email = "gb-test-vi@mail.ru";
-        String password = "qwerty123456";
+    public void logOut() throws InterruptedException {
+        MainPage mainPage = new MainPage(getDriver());
+        mainPage.clickAccountButton();
+        mainPage.clickLoginDDLButton();
 
-        getDriver().findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']")).click();
-        getDriver().findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//button")).click();
-        getDriver().findElement(By.xpath("//*[@id=\"login-email\"]")).sendKeys(email);
-        getDriver().findElement(By.xpath("//*[@id=\"login-password\"]")).sendKeys(password);
-        getDriver().findElement(By.xpath("//*[@id=\"modal\"]//button[@type='submit']")).click();
-
+        LoginModal loginModal = new LoginModal(getDriver());
+        loginModal.inputEmail("gb-test-vi@mail.ru");
+        loginModal.inputPassword("qwerty123456");
+        loginModal.clickLogin();
         new WebDriverWait(getDriver(), Duration.ofSeconds(3))
-                .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id='modal']")));
+                .until(ExpectedConditions.invisibilityOf(loginModal.getModalWindow()));
+        mainPage.clickAccountButton();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+                .until(ExpectedConditions.elementToBeClickable(mainPage.getLogOutLink()));
+        mainPage.clickLogOutLink();
+        getDriver().navigate().refresh();
+        mainPage.clickAccountButton();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+                .until(ExpectedConditions.visibilityOf(mainPage.getLoginDDLButton()));
 
-        getDriver().findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']")).click();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"userToolsDropDown\"]")));
-        getDriver().findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//div[text() = 'Выход']")).click();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        getDriver().findElement(By.xpath("//button[@class='styles_userToolsToggler__imcSl']")).click();
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        Assertions.assertTrue(getDriver().findElement(By.xpath("//*[@id=\"userToolsDropDown\"]//button")).isDisplayed());
+        Assertions.assertTrue(mainPage.getLoginDDLButton().isDisplayed());
 
     }
 }

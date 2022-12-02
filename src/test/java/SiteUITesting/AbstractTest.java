@@ -38,10 +38,10 @@ abstract class AbstractTest {
         Assertions.assertDoesNotThrow( () -> driver.navigate().to("https://www.21vek.by"));
     }
 
-    /*@AfterAll
+    @AfterAll
     static void close() {
         driver.quit();
-    }*/
+    }
 
     public static WebDriver getDriver() {
         return driver;
