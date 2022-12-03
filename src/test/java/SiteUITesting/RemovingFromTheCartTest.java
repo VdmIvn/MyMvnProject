@@ -3,6 +3,8 @@ package SiteUITesting;
 import SiteUIPageObject.CartPage;
 import SiteUIPageObject.CatalogPage;
 import SiteUIPageObject.MainPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
