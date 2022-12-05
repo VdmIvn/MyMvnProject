@@ -2,6 +2,7 @@ package SiteUITesting;
 
 import SiteUIPageObject.LoginModal;
 import SiteUIPageObject.MainPage;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import java.time.Duration;
 public class LoginToAccountTest extends AbstractTest{
 
     @Test
+    @Description("dfgdfgdghdhdgfh")
     @DisplayName("Login with valid credentials")
    void logIn() {
 
